@@ -1,0 +1,19 @@
+<h2>Login</h2>
+
+<fieldset>
+    
+    <div>
+        <label for="username">Username: </label>
+        <input type="text" name="username" #username>
+    </div>   
+
+    <div>
+        <label for="password">Password: </label>
+        <input type="text" name="password" #password>
+    </div>  
+
+    <div>
+       <input type="submit" value="Login" class="loginButton" (click)="submitCreds(username.value, password.value)" >
+    </div>
+
+</fieldset>
