@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute  } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+
 
 @Component({
   selector: 'app-login',
@@ -7,17 +10,34 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+    loginForm: FormGroup;
+    loading = false;
+    submitted = false;
+    returnUrl: string;
 
-  constructor( private router: Router) { }
+    constructor(
+        private formBuilder: FormBuilder,
+        private route: ActivatedRoute,
+        private router: Router,
+    ) { }
 
-  ngOnInit() {
-  }
-
-  submitCreds(username: string, password: string) {
-    if (username == 'admin' && password == 'admin'){
-        this.router.navigate(['/dashboard']);      
+    ngOnInit() {
+        this.loginForm = this.formBuilder.group({
+            username: ['', Validators.required],
+            password: ['', Validators.required]
+        });
     }
-    
-  }
 
+    get f() { return this.loginForm.controls; }
+
+    onSubmit() {
+        this.submitted = true;
+        if (this.loginForm.invalid) {
+            return;
+        }
+
+
+    }
 }
+
+

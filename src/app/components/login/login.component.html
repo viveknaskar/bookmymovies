@@ -1,19 +1,23 @@
 <h2>Login</h2>
-
-<fieldset>
-    
-    <div>
-        <label for="username">Username: </label>
-        <input type="text" name="username" #username>
-    </div>   
-
-    <div>
-        <label for="password">Password: </label>
-        <input type="text" name="password" #password>
-    </div>  
-
-    <div>
-       <input type="submit" value="Login" class="loginButton" (click)="submitCreds(username.value, password.value)" >
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" formControlName="username" class="form-control" />
+        <div *ngIf="submitted && f.username.errors || f.username.dirty||!f.username.untouched" class="invalid-feedback">
+            <div *ngIf="f.username.errors.required">Username is required</div>
+        </div>
     </div>
-
-</fieldset>
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" formControlName="password" class="form-control"  />
+        <div *ngIf="submitted && f.password.errors||f.password.dirty||!f.password.untouched" class="invalid-feedback">
+            <div *ngIf="f.password.errors.required">Password is required</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <button  class="btn btn-primary">
+            Login
+        </button>
+        <a routerLink="/register" class="btn btn-link">Register</a>
+    </div>
+</form>
